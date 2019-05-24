@@ -15,6 +15,7 @@
 Route::get('/', 'HomeController@index');
 Route::get('/addProduct', 'ProductController@index');
 Route::post('/createProduct', 'ProductController@create');
+Route::post('/checkCode', 'ProductController@checkCode');
 Route::post('/deleteProduct/{id}', 'ProductController@destroy')->name('deleteProduct');
 
 Auth::routes();

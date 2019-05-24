@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Products;
+use App\Discount;
 
 class ProductController extends Controller
 {
@@ -40,4 +41,16 @@ class ProductController extends Controller
        
         return redirect()->to("/")->with('success', 'delete successfully');
     }
+
+    public function checkCode(Request $request)
+    {   
+        $code = $request->code;
+       return $data = Discount::where('offer_code','=',$code)->first();
+        if($data){
+            return $data;
+        }
+        else{
+            echo "false";die;
+        }
+    }   
 }

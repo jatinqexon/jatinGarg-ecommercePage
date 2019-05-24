@@ -4,9 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-            crossorigin="anonymous">
-        <link rel="stylesheet" href="./css/index.css">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" defer></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
         <title>demoProject</title>
     </head>
     {{-- <body>
@@ -106,8 +107,7 @@
                                         {{-- <img class="img-responsive" style="max-height:40px;max-width:40px" src="{{!empty($data->image) && file_exists(public_path('images/').$data->image) ? asset('images/'.$data->image): asset('images/noimage.png') }}"> --}}
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <h4>Solid Rubics Cube.</h4>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{$data->name}}
                                             <div class="descProduct"><b>Style:</b> #MS13KT1906</div>
                                             <div class="descProduct"><b>Colour:</b> Multi-Colour</div>
                                         </div>
@@ -123,16 +123,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                {{$data->gender == 1 ? 'MALE':'FEMALE'}}
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{-- {{$data->gender == 1 ? 'MALE':'FEMALE'}} --}}{{$data->size == 1 ? 'M':'S'}}
                             </div>
                             <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
                                 <span class="centerBorder">
-                                    {{$data->quantity}}
+                                <select class ="quantity" value={{$data->quantity}}>
+                                        <option value="1" {{ $data->quantity == 1 ? 'selected':'' }}>1</option>
+                                        <option value="2" {{ $data->quantity == 2 ? 'selected':'' }}>2</option>
+                                        <option value="3" {{ $data->quantity == 3 ? 'selected':'' }}>3</option>
+                                    </select>
                                 </span>
                             </div>
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
-                                <b>₹</b> {{$data->price}}
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1" id="price"><b>₹</b>{{$data->price}}
                             </div>
                         </div>
                     @endforeach
@@ -163,8 +165,8 @@
                                     ENTER PROMOTION CODE OR GIFT CARDS
                                 </div>
                                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                                    <input type="text" />
-                                    <input type="button" value="APPLY" />
+                                    <input type="text" id="code" />
+                                    <input type="button" id="apply" value="APPLY" />
                                 </div>
                             </div>
                             <hr class='boldHrLine' />
@@ -265,3 +267,34 @@ dd{
 }
 
 </style>
+
+<script>
+    $(document).ready(function(){
+        $('#apply').click(function(){debugger;
+            url = document.URL;
+            var csrf = '{{ csrf_token() }}';
+            var code = $('#code').val();
+            $.ajax({
+                type: "POST",
+                cache: false,
+                datatype:"json",
+                url: url + '/checkCode',
+                data: {
+                    _token: csrf,
+                    code: code,
+                },
+                success: function (response) {debugger
+                    if(response!= ""){
+                        var data = JSON.parse(response);
+                        
+                    }
+                    else{
+                        alert('invalid promocode');
+                    }
+                    
+                }
+            });
+        });
+    });
+</script>
+
