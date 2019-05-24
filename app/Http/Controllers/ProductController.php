@@ -19,6 +19,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->size = $request->size;
         $product->gender = $request->gender;
+        $product->quantity = $request->quantity;
         $product->discount = $request->discount;
         $product->price = $request->price;
         if($request->hasFile('image')){

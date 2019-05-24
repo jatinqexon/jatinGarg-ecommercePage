@@ -33,6 +33,9 @@
                             <input type ="text" class="form-control" name="price" style=" margin-top:2%;" placeholder="Enter Product PRice" > 
                         </div>
                         <div class="form-group">
+                            <input type ="text" class="form-control" name="quantity" style=" margin-top:2%;" placeholder="Enter Quantity" > 
+                        </div>
+                        <div class="form-group">
                             <input type ="text" class="form-control" name="discount" style=" margin-top:2%;" placeholder="Enter Discount" > 
                         </div>
                         <div class="form-group">
