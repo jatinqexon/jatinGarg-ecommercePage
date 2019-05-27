@@ -1,0 +1,41 @@
+.customPadding15{
+    padding-top: 15px; 
+}
+.boldHrLine{
+    border: 2px solid black;
+}
+.centerBorder{
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+}
+.product{
+    height: 300px;
+    width: 250px;
+    border: 1px solid black;
+}
+.descProduct{
+    font-size: 13px;
+}
+h4{
+    margin-bottom: 0 !important;
+}
+p u{
+    font-weight: lighter !important;
+}
+input{
+    vertical-align: middle;
+}
+dd{
+    margin-bottom: 0 !important;
+    font-size: 10px;
+}
+.marginBottom{
+    margin-bottom: 0 !important;
+}
+.submitBtn{
+    margin-left: 10px;
+}
+#footer{
+    min-height: 100px;
+}
